@@ -62,8 +62,18 @@ const i18n = createI18n({
     }
 })
 
-createApp(App)
-    .use(router)
+const app = createApp(App);
+
+const isDev = import.meta.env && import.meta.env.MODE === 'development';
+
+console.log("Vue Environment:", isDev ? "development" : "production");
+
+// 🔹 **Force Vue DevTools to detect the app**
+if (isDev) {
+    (app.config as any).devtools = true;
+    (globalThis as any).__VUE_DEVTOOLS_GLOBAL_HOOK__?.emit('app:init', app, 'vue3');
+}
+app.use(router)
     .use(createPinia())
     .use(VueApexCharts)
     .use(OpenLayersMap)
@@ -83,4 +93,4 @@ createApp(App)
     .component(VueFeather.name, VueFeather)
     .component('Datepicker', Datepicker)
     .component('multiselect', Multiselect)
-    .mount('#app')
+    .mount("#app");

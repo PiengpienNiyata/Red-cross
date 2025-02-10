@@ -14,6 +14,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
+      "vite/client",
       "webpack-env"
     ],
     "paths": {
@@ -33,7 +34,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "tests/**/*.tsx",
+    "env.d.ts"
   ],
   "exclude": [
     "node_modules"
