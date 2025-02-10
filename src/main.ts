@@ -2,10 +2,10 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap"
 import 'bootstrap/dist/js/bootstrap.bundle'
-import "bootstrap/dist/js/bootstrap.bundle.min.js"; 
+import "bootstrap/dist/js/bootstrap.min.js";
 import "./assets/scss/app.scss"
 import '@vuepic/vue-datepicker/dist/main.css'
 import 'vue-rate/dist/vue-rate.css'
@@ -62,14 +62,8 @@ const i18n = createI18n({
     }
 })
 
-const app = createApp(App);
-
-// Fix for TypeScript error
-if (process.env.NODE_ENV === "development") {
-    (app.config as any).devtools = true;
-}
-
-app.use(router)
+createApp(App)
+    .use(router)
     .use(createPinia())
     .use(VueApexCharts)
     .use(OpenLayersMap)
@@ -89,4 +83,4 @@ app.use(router)
     .component(VueFeather.name, VueFeather)
     .component('Datepicker', Datepicker)
     .component('multiselect', Multiselect)
-    .mount("#app");
+    .mount('#app')
