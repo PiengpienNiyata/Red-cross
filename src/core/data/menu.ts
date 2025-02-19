@@ -14,9 +14,23 @@ interface MenuItem {
 }
 
 export const menu: MenuItem[] = [
+ 
     {
-        headTitle1: "General",
+        headTitle1: "using",
         headTitle2: "Dashboards,Widgets & Layout.",
+        type: "headtitle"
+    },
+    {
+        path: "/admins/users",
+        icon: "stroke-user",
+        icon1: "fill-user",
+        title: "Users",
+        isPinned: false,
+        type: "link"
+    },
+    {
+        headTitle1: "Unused Templates",
+        headTitle2: "Ready to use apps",
         type: "headtitle"
     },
     {
@@ -69,12 +83,6 @@ export const menu: MenuItem[] = [
                 type: "link"
             }
         ]
-    },
-
-    {
-        headTitle1: "Applications",
-        headTitle2: "Ready to use apps",
-        type: "headtitle"
     },
     {
         title: "project",

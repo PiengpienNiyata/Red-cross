@@ -153,6 +153,8 @@ import indexPagenation from "@/pages/advance/indexPagenation.vue"
 import indexBreadcrumb from "@/pages/advance/indexBreadcrumb.vue"
 import indexRange from "@/pages/advance/indexRange.vue"
 
+import users from "@/pages/admin/users/users.vue"
+
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -189,6 +191,24 @@ const routes: Array<RouteRecordRaw> = [
           title: 'Mofi - Premium Vue Admin Template',
         }
       }
+    ]
+  },
+  {
+    path: '/admins',
+    name: 'admins',
+    component: BodyView,
+    meta: {
+      title: 'admin section',
+    },
+    children: [
+      {
+        path: "users",
+        name: "users",
+        component: users,
+        meta: {
+          title: 'Users page',
+        }
+      },
     ]
   },
   {

@@ -1,0 +1,49 @@
+<template>
+  <div class="card email-body email-list" :class="active ? 'hide' : ''">
+    <div class="mail-header-wrapper">
+        <div class="user-list-title">User list</div>
+        <div class="mail-body">
+        <div class="mail-search d-flex-align-items-center">
+          <input
+            class="form-control"
+            type="text"
+            v-model="searchQuery"
+            placeholder="Search..."
+          />
+          <i class="fa fa-search"></i>
+        </div>
+        <button class="btn btn-danger">
+          <i class="fa fa-plus"></i> Add user
+        </button>
+        <!-- <button
+          class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded inline-flex items-center"
+        >
+          <i class="fa fa-trash"> </i> Delete user
+        </button> -->
+
+        <ul class="dropdown-menu dropdown-block dropdown-menu-end">
+          <li v-for="(item, index) in dropdown" :key="index">
+            <a class="dropdown-item" href="#!">{{ item.title }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="tab-content" id="email-pills-tabContent">
+        <UserItem :search-query="searchQuery" />
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref } from "vue";
+import { dropdown } from "@/core/data/letter-box";
+import { defineAsyncComponent } from "vue";
+const UserItem = defineAsyncComponent(
+  () => import("@/components/admins/users/userbox/UserItem.vue")
+);
+
+const searchQuery = ref<string>("");
+let active = ref<boolean>(false);
+
+
+</script>
