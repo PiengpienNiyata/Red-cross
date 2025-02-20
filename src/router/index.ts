@@ -154,6 +154,7 @@ import indexBreadcrumb from "@/pages/advance/indexBreadcrumb.vue"
 import indexRange from "@/pages/advance/indexRange.vue"
 
 import users from "@/pages/admin/users/users.vue"
+import addUser from "@/pages/admin/users/addUserForm.vue"
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -197,20 +198,22 @@ const routes: Array<RouteRecordRaw> = [
     path: '/admins',
     name: 'admins',
     component: BodyView,
-    meta: {
-      title: 'admin section',
-    },
     children: [
       {
         path: "users",
         name: "users",
         component: users,
-        meta: {
-          title: 'Users page',
-        }
+        children: [
+          {
+            path: "add",
+            name: "add",
+            component: addUser,
+          },
+        ],
       },
-    ]
-  },
+    ],
+  }
+  ,
   {
     path: "/dashboards",
     component: BodyView,

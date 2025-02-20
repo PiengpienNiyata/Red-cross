@@ -2,8 +2,8 @@
     2.25 UserItem CSS Start
 ==========================**/
 
-.email-right-aside {
-  .email-list {
+.users-box {
+  .users-list {
     display: block;
 
     &.hide {
@@ -24,210 +24,210 @@
   }
 }
 
-.email-main-wrapper {
-  .email-app-sidebar {
-    .nav-pills {
-      .nav-item {
-        &:active,
-        &.active {
-          border-radius: 5px;
-        }
-      }
+// .user-main-wrapper {
+//   .email-app-sidebar {
+//     .nav-pills {
+//       .nav-item {
+//         &:active,
+//         &.active {
+//           border-radius: 5px;
+//         }
+//       }
 
-      .nav-link {
-        color: var(--chart-text-color);
-        gap: 13px;
-        text-transform: capitalize;
-        font-size: 16px;
-        font-weight: 500;
-        position: relative;
-        padding: 8px 20px;
+//       .nav-link {
+//         color: var(--chart-text-color);
+//         gap: 13px;
+//         text-transform: capitalize;
+//         font-size: 16px;
+//         font-weight: 500;
+//         position: relative;
+//         padding: 8px 20px;
 
-        // &.active {
-        //     background-color: var(--theme-deafult);
-        //     color: var(--white);
+//         // &.active {
+//         //     background-color: var(--theme-deafult);
+//         //     color: var(--white);
 
-        //     svg {
-        //         stroke: var(--white);
-        //     }
-        // }
+//         //     svg {
+//         //         stroke: var(--white);
+//         //     }
+//         // }
 
-        &:hover {
-          background-color: unset;
-          color: var(--theme-deafult);
-        }
+//         &:hover {
+//           background-color: unset;
+//           color: var(--theme-deafult);
+//         }
 
-        &.active,
-        &:active {
-          background-color: var(--light-shade-primary);
-          color: var(--theme-deafult);
-          border-radius: 5px;
+//         &.active,
+//         &:active {
+//           background-color: var(--light-shade-primary);
+//           color: var(--theme-deafult);
+//           border-radius: 5px;
 
-          svg {
-            stroke: rgba($theme-body-sub-title-color, 0.8);
-          }
+//           svg {
+//             stroke: rgba($theme-body-sub-title-color, 0.8);
+//           }
 
-          &::after {
-            content: "";
-            border-right: 3px solid var(--theme-deafult);
-            position: absolute;
-            top: 9px;
-            width: 4px;
-            right: 0;
-            height: 35px;
-            border: 2px solid var(--theme-deafult);
-            border-radius: 100px 0 0 100px;
+//           &::after {
+//             content: "";
+//             border-right: 3px solid var(--theme-deafult);
+//             position: absolute;
+//             top: 9px;
+//             width: 4px;
+//             right: 0;
+//             height: 35px;
+//             border: 2px solid var(--theme-deafult);
+//             border-radius: 100px 0 0 100px;
 
-            [dir="rtl"] & {
-              right: unset;
-              left: 0;
-            }
+//             [dir="rtl"] & {
+//               right: unset;
+//               left: 0;
+//             }
 
-            @media (max-width: 1400px) {
-              top: 8px;
-              height: 28px;
-            }
-          }
-        }
+//             @media (max-width: 1400px) {
+//               top: 8px;
+//               height: 28px;
+//             }
+//           }
+//         }
 
-        svg {
-          width: 18px;
-          height: 18px;
-          stroke: rgba($theme-body-sub-title-color, 0.8);
-        }
+//         svg {
+//           width: 18px;
+//           height: 18px;
+//           stroke: rgba($theme-body-sub-title-color, 0.8);
+//         }
 
-        div {
-          width: calc(100% - 13px - 18px);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
+//         div {
+//           width: calc(100% - 13px - 18px);
+//           display: flex;
+//           align-items: center;
+//           justify-content: space-between;
 
-          @media (max-width: 1400px) {
-            font-size: 15px;
-          }
-        }
-      }
-    }
+//           @media (max-width: 1400px) {
+//             font-size: 15px;
+//           }
+//         }
+//       }
+//     }
 
-    span {
-      background-color: $light-primary;
-      color: var(--theme-deafult);
-      border-radius: 20px;
-      padding: 5px 13px;
+//     span {
+//       background-color: $light-primary;
+//       color: var(--theme-deafult);
+//       border-radius: 20px;
+//       padding: 5px 13px;
 
-      @media (max-width: 1400px) {
-        padding: 3px 10px;
-      }
-    }
+//       @media (max-width: 1400px) {
+//         padding: 3px 10px;
+//       }
+//     }
 
-    .compose-mail {
-      display: block;
-      text-align: center;
+//     .compose-mail {
+//       display: block;
+//       text-align: center;
 
-      .nav-link {
-        &.active {
-          padding: 15px;
-          background-color: var(--theme-deafult);
-          color: var(--white);
+//       .nav-link {
+//         &.active {
+//           padding: 15px;
+//           background-color: var(--theme-deafult);
+//           color: var(--white);
 
-          @media (max-width: 1400px) {
-            padding: 10px;
-          }
+//           @media (max-width: 1400px) {
+//             padding: 10px;
+//           }
 
-          &::before {
-            content: unset;
-          }
-        }
+//           &::before {
+//             content: unset;
+//           }
+//         }
 
-        i {
-          font-size: 13px;
-        }
-      }
-    }
+//         i {
+//           font-size: 13px;
+//         }
+//       }
+//     }
 
-    .email-category {
-      &.nav-pills {
-        .nav-item {
-          .nav-link {
-            @media (max-width: 1400px) {
-              padding: 3px 20px;
-            }
-          }
+//     .email-category {
+//       &.nav-pills {
+//         .nav-item {
+//           .nav-link {
+//             @media (max-width: 1400px) {
+//               padding: 3px 20px;
+//             }
+//           }
 
-          // &:last-child {
+//           // &:last-child {
 
-          //     a {
-          //         border-bottom: 1px dashed var(--chart-dashed-border);
-          //         border-radius: 0;
+//           //     a {
+//           //         border-bottom: 1px dashed var(--chart-dashed-border);
+//           //         border-radius: 0;
 
-          //     }
-          // }
-        }
-      }
-    }
+//           //     }
+//           // }
+//         }
+//       }
+//     }
 
-    .taged-mail {
-      &.nav-pills {
-        .nav-item {
-          .nav-link {
-            @media (max-width: 1400px) {
-              padding: 3px 20px;
-            }
-          }
+//     .taged-mail {
+//       &.nav-pills {
+//         .nav-item {
+//           .nav-link {
+//             @media (max-width: 1400px) {
+//               padding: 3px 20px;
+//             }
+//           }
 
-          &:first-child {
-            a {
-              margin-top: 16px;
-            }
-          }
+//           &:first-child {
+//             a {
+//               margin-top: 16px;
+//             }
+//           }
 
-          svg {
-            width: 24px;
-            height: 24px;
-          }
-        }
-      }
-    }
+//           svg {
+//             width: 24px;
+//             height: 24px;
+//           }
+//         }
+//       }
+//     }
 
-    .emailbox {
-      &.btn {
-        width: 100%;
-        margin-bottom: 15px;
-        padding: 12px;
-        font-size: 16px;
-        font-weight: 500;
+//     .emailbox {
+//       &.btn {
+//         width: 100%;
+//         margin-bottom: 15px;
+//         padding: 12px;
+//         font-size: 16px;
+//         font-weight: 500;
 
-        @media (max-width: 576px) {
-          padding: 7px;
-        }
+//         @media (max-width: 576px) {
+//           padding: 7px;
+//         }
 
-        i {
-          padding-right: 12px;
+//         i {
+//           padding-right: 12px;
 
-          [dir="rtl"] & {
-            padding-right: unset;
-            padding-left: 12px;
-          }
-        }
-      }
+//           [dir="rtl"] & {
+//             padding-right: unset;
+//             padding-left: 12px;
+//           }
+//         }
+//       }
 
-      // .nav-link {
-      //     justify-content: center;
-      //     background-color: var(--theme-deafult);
-      //     color: var(--white);
+//       // .nav-link {
+//       //     justify-content: center;
+//       //     background-color: var(--theme-deafult);
+//       //     color: var(--white);
 
-      //     &:hover {
-      //         background-color: var(--theme-deafult);
-      //         color: var(--white);
-      //     }
-      // }
-    }
-  }
-}
+//       //     &:hover {
+//       //         background-color: var(--theme-deafult);
+//       //         color: var(--white);
+//       //     }
+//       // }
+//     }
+//   }
+// }
 
-// Mail-body
-.email-body {
-  .mail-header-wrapper {
+// users-body
+.users-body {
+  .users-header-wrapper {
     padding: 16px;
     box-shadow: 0px 5px 10px 0px rgba(82, 82, 108, 0.08);
     display: block;
@@ -356,7 +356,7 @@
       }
     }
 
-    .mail-body {
+    .users-body {
       display: flex;
       gap: 12px;
 
@@ -369,7 +369,7 @@
         display: none;
       }
 
-      .mail-search {
+      .users-search {
         position: relative;
 
         @media (max-width: 1500px) {
@@ -730,7 +730,7 @@
             //     transition: all 0.3s ease-in-out;
 
             // }
-            .profile-dropdown {
+            .position-dropdown {
                 top: 30px;
               }
 
@@ -1128,7 +1128,7 @@
     }
   }
 
-  .mail-body1 {
+  .users-body1 {
     display: flex;
     gap: 10px;
 

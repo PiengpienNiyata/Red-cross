@@ -1,9 +1,9 @@
 <template>
-  <div class="card email-body email-list" :class="active ? 'hide' : ''">
-    <div class="mail-header-wrapper">
+  <div class="card users-body users-list" :class="active ? 'hide' : ''">
+    <div class="users-header-wrapper">
         <div class="user-list-title">User list</div>
-        <div class="mail-body">
-        <div class="mail-search d-flex-align-items-center">
+        <div class="users-body">
+        <div class="users-search d-flex-align-items-center">
           <input
             class="form-control"
             type="text"
@@ -12,9 +12,12 @@
           />
           <i class="fa fa-search"></i>
         </div>
+        <router-link to="/admins/users/add">
         <button class="btn btn-danger">
           <i class="fa fa-plus"></i> Add user
         </button>
+    </router-link>
+
         <!-- <button
           class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded inline-flex items-center"
         >
@@ -28,7 +31,7 @@
         </ul>
       </div>
     </div>
-    <div class="tab-content" id="email-pills-tabContent">
+    <div class="user-tab-content" id="email-pills-tabContent">
         <UserItem :search-query="searchQuery" />
     </div>
   </div>
