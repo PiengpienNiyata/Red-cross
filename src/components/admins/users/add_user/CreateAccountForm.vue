@@ -110,6 +110,9 @@
         <span class="text-muted" v-if="inputs.password.data">
           ✅ Password set.
         </span>
+        <span class="text-muted" v-else>
+          ❌ Password not set.
+        </span>
         <div class="invalid-feedback" v-if="inputs.password.errorMessage">
           {{ inputs.password.errorMessage }}
         </div>
@@ -129,17 +132,66 @@
         >
           Cancel
         </button>
-        <button class="btn btn-primary" type="submit">Save</button>
+        <button
+      class="btn btn-primary"
+      type="submit"
+      :data-bs-toggle="formSubmitted ? 'modal' : ''"
+      :data-bs-target="formSubmitted ? (isFormValid ? '#successModal' : '#errorModal') : ''"
+      @click="sendData"
+    >
+      Save
+    </button>        
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-toggle-wrapper">
+                            <ul class="modal-img">
+                                <li> <img src="@/assets/images/gif/danger.gif" alt="error"></li>
+                            </ul>
+                            <h4 class="text-center pb-2">Invalid input!</h4>
+                            <p class="text-center">Please check your account data before sent.</p>
+                            <br>
+                            <button class="btn btn-secondary d-flex m-auto" type="button"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-toggle-wrapper">
+                            <ul class="modal-img">
+                                <li> <img src="@/assets/images/gif/dashboard-8/successful.gif" alt="error"></li>
+                            </ul>
+                            <h4 class="text-center pb-2">Account created successfully!</h4>
+                            <p class="text-center">Click on close button to user list</p>
+                            <br>
+                            <button class="btn btn-secondary d-flex m-auto" type="button"
+                                data-bs-dismiss="modal" @click="goBack">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       </div>
     </form>
   </Card3>
+
+  
+
 </template>
 
 <script lang="ts" setup>
-import { ref, defineAsyncComponent } from "vue";
+import { ref, defineAsyncComponent, computed } from "vue";
 import { useRouter } from "vue-router";
 import {
-  onSubmit,
+  validateInputs,
+  onSubmit as sendData,
   inputs,
   optionValues,
   formSubmitted,
@@ -163,6 +215,12 @@ const handlePasswordSubmit = (password: string) => {
 
 const openPasswordModal = () => {
   passwordModalRef.value?.showModal();
+};
+
+const isFormValid = computed(() => validateInputs());
+
+const onSubmit = () => {
+  formSubmitted.value = true;
 };
 
 const goBack = () => {

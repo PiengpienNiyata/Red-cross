@@ -1,4 +1,10 @@
 import { ref } from 'vue';
+// import { toast } from 'vue3-toastify';
+// import 'vue3-toastify/dist/index.css';
+// import { useRouter } from 'vue-router'
+
+
+// let router = useRouter()
 
 interface InputData {
   data: string;
@@ -73,7 +79,12 @@ export const onSubmit = () => {
   if (formIsValid) {
     console.log('✅ Form is valid! Submitting...', inputs.value);
     // รอdatabase/api
+    // toast.success('Account created successfully ', { position: 'top-right', autoClose: 4000 });
+    // router.replace('/admins/users');
+
   } else {
     console.log('❌ Form has errors. Fix them before submitting.');
+    // toast.error('Opps... Form has errors. Fix them before submitting. ', { position: 'top-right', autoClose: 4000 });
+
   }
 };
