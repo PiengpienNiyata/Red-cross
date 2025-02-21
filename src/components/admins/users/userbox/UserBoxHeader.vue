@@ -12,7 +12,7 @@
           />
           <i class="fa fa-search"></i>
         </div>
-        <router-link to="/admins/users/add">
+        <router-link to="/admins/users/create">
         <button class="btn btn-danger">
           <i class="fa fa-plus"></i> Add user
         </button>

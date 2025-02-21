@@ -1,107 +1,79 @@
-import { ref } from 'vue'
+import { ref } from 'vue';
+
 interface InputData {
-    data: string;
-    errorMessage: string;
+  data: string;
+  errorMessage: string;
 }
 
 interface Inputs {
-    firstname: InputData;
-    lastname: InputData;
-    username: InputData;
-    city: InputData;
-    state: InputData;
-    zip: InputData;
-    password: InputData,
-    feedback: InputData,
+  firstname: InputData;
+  lastname: InputData;
+  email: InputData;
+  position: InputData;
+  password: InputData;
 }
+
 interface ErrorObject {
-    message: string;
-    code: number;
+  message: string;
+  code: number;
 }
-export let errors = ref<ErrorObject[]>([])
 
-export let optionValues = ref<string[]>(['U.S', 'Thailand', 'India', 'U.K'])
-export let themeValue = ref<string[]>(["Mofi", "Mofi", "Wingo"])
-export let feedbacks = ref<string[]>(["Cuba", "Tivo", "Wingo"])
-export let inputs = ref<Inputs>({
-    firstname: {
-        data: 'Mark',
-        errorMessage: 'asdasd',
-    }, lastname: {
-        data: 'Otto',
-        errorMessage: ''
-    }, username: {
-        data: '',
-        errorMessage: ''
-    }, city: {
-        data: '',
-        errorMessage: ''
-    }, state: {
-        data: '',
-        errorMessage: ''
-    }, zip: {
-        data: '',
-        errorMessage: ''
-    }, password: {
-        data: '',
-        errorMessage: ''
-    }, feedback: {
-        data: '',
-        errorMessage: ''
+export const errors = ref<ErrorObject[]>([]);
+export const optionValues = ref<string[]>(['System', 'Admin', 'User']);
+
+export const inputs = ref<Inputs>({
+  firstname: { data: '', errorMessage: '' },
+  lastname: { data: '', errorMessage: '' },
+  email: { data: '', errorMessage: '' },
+  position: { data: '', errorMessage: '' },
+  password: { data: '', errorMessage: '' },
+});
+
+export const formSubmitted = ref<boolean>(false);
+export const submitted = ref<boolean>(false);
+
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+export const validateInputs = (): boolean => {
+  const values = inputs.value;
+  let isValid = true;
+
+  const validateField = (
+    field: keyof Inputs,
+    condition: boolean,
+    message: string
+  ) => {
+    if (condition) {
+      values[field].errorMessage = message;
+      isValid = false;
+    } else {
+      values[field].errorMessage = '';
     }
-})
-export let inputss = ref<Inputs>({
-    firstname: {
-        data: 'Mark',
-        errorMessage: 'asdasd',
-    }, lastname: {
-        data: 'Otto',
-        errorMessage: ''
-    }, username: {
-        data: '',
-        errorMessage: ''
-    }, city: {
-        data: '',
-        errorMessage: ''
-    }, state: {
-        data: '',
-        errorMessage: ''
-    }, zip: {
-        data: '',
-        errorMessage: ''
-    }, password: {
-        data: '',
-        errorMessage: ''
-    }, feedback: {
-        data: '',
-        errorMessage: ''
-    }
-})
-export let formSubmitted = ref<boolean>(false)
-export let Submitted = ref<boolean>(false)
+  };
 
-export function onCustomStyleSubmit() {
+  validateField('firstname', values.firstname.data.trim().length < 3, 'Invalid first name (min 3 chars).');
+  validateField('lastname', values.lastname.data.trim().length < 3, 'Invalid last name (min 3 chars).');
+  validateField('email', !isValidEmail(values.email.data), 'Invalid email format.');
+  validateField('position', values.position.data.trim().length < 1, 'Please select a valid position.');
+  validateField('password', values.password.data.trim().length < 6, 'Password must be at least 6 characters.');
 
-    formSubmitted.value = true;
-    const values = inputs.value
-    values.firstname.data.length < 3 ? values.firstname.errorMessage = 'Please choose a firstname' : values.firstname.errorMessage = ''
-    values.lastname.data.length < 3 ? values.lastname.errorMessage = 'Please choose a lastname.' : values.lastname.errorMessage = ''
-    values.username.data.length < 3 ? values.username.errorMessage = 'Please choose a username.' : values.username.errorMessage = ''
-    values.city.data.length < 3 ? values.city.errorMessage = 'Please provide a valid city.' : values.city.errorMessage = ''
-    values.state.data.length < 1 ? values.state.errorMessage = 'Please select a valid state.' : values.state.errorMessage = ''
-    values.zip.data.length < 7 ? values.zip.errorMessage = 'Please provide a valid zip.' : values.zip.errorMessage = ''
-    values.password.data.length < 1 ? values.password.errorMessage = 'Please provide a valid password.' : values.password.errorMessage = ''
-}
+  return isValid;
+};
 
-export function onCustomSubmit() {
-    Submitted.value = true;
-    const values = inputss.value
-    values.firstname.data.length < 3 ? values.firstname.errorMessage = 'Please choose a firstname' : values.firstname.errorMessage = ''
-    values.lastname.data.length < 3 ? values.lastname.errorMessage = 'Please choose a lastname.' : values.lastname.errorMessage = ''
-    values.username.data.length < 3 ? values.username.errorMessage = 'Please choose a username.' : values.username.errorMessage = ''
-    values.city.data.length < 3 ? values.city.errorMessage = 'Please provide a valid city.' : values.city.errorMessage = ''
-    values.state.data.length < 1 ? values.state.errorMessage = 'Please select a valid state.' : values.state.errorMessage = ''
-    values.zip.data.length < 7 ? values.zip.errorMessage = 'Please provide a valid zip.' : values.zip.errorMessage = ''
-    values.feedback.data.length < 7 ? values.feedback.errorMessage = 'Please provide a valid feedback.' : values.feedback.errorMessage = ''
 
-}
+export const onSubmit = () => {
+  submitted.value = true;
+  formSubmitted.value = true;
+
+  const formIsValid = validateInputs();
+
+  if (formIsValid) {
+    console.log('✅ Form is valid! Submitting...', inputs.value);
+    // รอdatabase/api
+  } else {
+    console.log('❌ Form has errors. Fix them before submitting.');
+  }
+};

@@ -1,11 +1,11 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <AddUserForm />
+            <CreateAccountForm />
         </div>
     </div>
 </template>
 <script lang="ts" setup>
 import { ref, defineAsyncComponent } from 'vue'
-const AddUserForm = defineAsyncComponent(() => import("@/components/admins/users/add_user/AddUserForm.vue"))
+const CreateAccountForm = defineAsyncComponent(() => import("@/components/admins/users/add_user/CreateAccountForm.vue"))
 </script>
