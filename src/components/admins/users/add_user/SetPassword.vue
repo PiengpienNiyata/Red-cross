@@ -65,43 +65,60 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, defineProps, defineEmits, watch } from "vue";
 import { Modal } from "bootstrap";
+
+// ✅ Props: Accept the initial password (for editing scenario)
+const props = defineProps<{ password: string }>();
+
+// ✅ Emits event to parent component when password is submitted
+const emit = defineEmits(["passwordSubmitted"]);
 
 const modalRef = ref<HTMLElement | null>(null);
 let modalInstance: Modal | null = null;
 
-const password = ref<string>("");
+// ✅ Initialize password fields
+const password = ref<string>(props.password || "");      // Use prop value if editing
 const confirmPassword = ref<string>("");
 
+// ✅ Error states
 const passwordError = ref<boolean>(false);
 const confirmPasswordError = ref<boolean>(false);
 
-const emit = defineEmits(["passwordSubmitted"]);
-
+// ✅ Initialize Bootstrap modal
 onMounted(() => {
   if (modalRef.value) {
     modalInstance = new Modal(modalRef.value, { backdrop: "static", keyboard: false });
   }
 });
 
+// ✅ Show modal and reset confirmPassword on open
 const showModal = () => {
+  password.value = props.password;   // Pre-fill password field (for editing)
+  confirmPassword.value = "";        // Clear confirm field
+  passwordError.value = false;
+  confirmPasswordError.value = false;
   modalInstance?.show();
 };
 
+// ✅ Hide modal
 const hideModal = () => {
   modalInstance?.hide();
 };
 
+// ✅ Submit password with validation
 const submitPassword = () => {
-    passwordError.value = password.value.length < 6;
-    confirmPasswordError.value = password.value !== confirmPassword.value;
-  if (password.value.length >= 6 && password.value === confirmPassword.value) {
-    emit("passwordSubmitted", password.value);
+  passwordError.value = password.value.length < 6;
+  confirmPasswordError.value = password.value !== confirmPassword.value;
+
+  if (!passwordError.value && !confirmPasswordError.value) {
+    emit("passwordSubmitted", password.value);  // 🔥 Send password to parent
     hideModal();
   }
 };
 
-defineExpose({ showModal });
+// ✅ Expose methods to parent component
+defineExpose({ showModal, hideModal });
 </script>
+
 

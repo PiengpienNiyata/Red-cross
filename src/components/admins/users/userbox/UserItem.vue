@@ -31,14 +31,18 @@
         <div class="user-data-header">
           <li class="profile-nav onhover-dropdown px-0 py-0">
             <div class="user-position">
-      {{ displayPosition }}
-      <button class="user-dropdown-button">
-        <i class="fa fa-angle-down"></i>
-      </button>
-    </div>
+              {{ displayPosition }}
+              <button class="user-dropdown-button">
+                <i class="fa fa-angle-down"></i>
+              </button>
+            </div>
 
-            <ul class="position-dropdown onhover-show-div" >
-              <li v-for="position in positions" :key="position" @click="filterPosition(position)">
+            <ul class="position-dropdown onhover-show-div">
+              <li
+                v-for="position in positions"
+                :key="position"
+                @click="filterPosition(position)"
+              >
                 <span>{{ position === "all" ? "All" : position }}</span>
               </li>
             </ul>
@@ -90,7 +94,9 @@
 
           <div class="interaction">
             <a href="#">
-              <i class="fa fa-pencil" style="font-size: 16px"> </i>
+              <router-link :to="{ name: 'edit', params: { userId: row.id } }">
+                <i class="fa fa-pencil" style="font-size: 16px"> </i>
+              </router-link>
             </a>
             <a href="#">
               <i class="fa fa-trash" style="font-size: 16px"> </i>
@@ -157,10 +163,10 @@ function prev() {
   if (currentPage.value > 1) currentPage.value--;
 }
 
-const startIndex = computed(() => (currentPage.value - 1) * elementsPerPage.value);
+const startIndex = computed(
+  () => (currentPage.value - 1) * elementsPerPage.value
+);
 const endIndex = computed(() =>
   Math.min(startIndex.value + elementsPerPage.value, filteredUsers.value.length)
 );
 </script>
-
-

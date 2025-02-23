@@ -5,7 +5,7 @@
                 <!-- <LetterBoxSidebar /> -->
                 <div class="col-xxl-12 col-xl-8 box-col-12">
                     <div class="users-box">
-                        <UserBoxHeader v-if="!isAddUserPage" />
+                        <UserBoxHeader v-if="!isFormPage" />
                         <router-view />
                     </div>
                 </div>
@@ -20,6 +20,9 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 // const LetterBoxSidebar = defineAsyncComponent(() => import("@/components/theme/letterbox/LetterBoxSidebar.vue"))
 const UserBoxHeader = defineAsyncComponent(() => import("@/components/admins/users/userbox/UserBoxHeader.vue"))
-const isAddUserPage = computed(() => route.path.includes('/admins/users/create'));
+const isFormPage = computed(() => 
+  route.path.includes('/admins/users/create') || route.path.includes('/admins/users/edit')
+);
+
 
 </script>

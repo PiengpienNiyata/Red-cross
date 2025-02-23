@@ -155,7 +155,7 @@ import indexRange from "@/pages/advance/indexRange.vue"
 
 import users from "@/pages/admin/users/users.vue"
 import createAccount from "@/pages/admin/users/createAccount.vue"
-
+import editAccount from "@/pages/admin/users/editAccount.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -195,24 +195,30 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: '/admins',
-    name: 'admins',
+    path: "/admins",
+    name: "admins",
     component: BodyView,
     children: [
       {
         path: "users",
         name: "users",
         component: users,
-        children: [
-          {
-            path: "create",
-            name: "create",
-            component: createAccount,
-          },
-        ],
+      },
+      {
+        path: "users/create",
+        name: "create",
+        component: createAccount,
+      },
+      {
+        path: "users/edit/:userId",
+        name: "edit",
+        component: editAccount,
+        props: true,
       },
     ],
   }
+  
+  
   ,
   {
     path: "/dashboards",

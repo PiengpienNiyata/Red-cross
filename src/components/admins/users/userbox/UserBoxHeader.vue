@@ -1,8 +1,8 @@
 <template>
   <div class="card users-body users-list" :class="active ? 'hide' : ''">
     <div class="users-header-wrapper">
-        <div class="user-list-title">User list</div>
-        <div class="users-body">
+      <div class="user-list-title">User list</div>
+      <div class="users-body">
         <div class="users-search d-flex-align-items-center">
           <input
             class="form-control"
@@ -11,18 +11,13 @@
             placeholder="Search..."
           />
           <i class="fa fa-search"></i>
+        
         </div>
         <router-link to="/admins/users/create">
-        <button class="btn btn-danger">
-          <i class="fa fa-plus"></i> Add user
-        </button>
-    </router-link>
-
-        <!-- <button
-          class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-1 px-4 rounded inline-flex items-center"
-        >
-          <i class="fa fa-trash"> </i> Delete user
-        </button> -->
+          <button class="btn btn-danger" style="height: 100%;">
+            <i class="fa fa-plus"></i> Add user
+          </button>
+        </router-link>
 
         <ul class="dropdown-menu dropdown-block dropdown-menu-end">
           <li v-for="(item, index) in dropdown" :key="index">
@@ -32,7 +27,7 @@
       </div>
     </div>
     <div class="user-tab-content" id="email-pills-tabContent">
-        <UserItem :search-query="searchQuery" />
+      <UserItem :search-query="searchQuery" />
     </div>
   </div>
 </template>
@@ -47,6 +42,4 @@ const UserItem = defineAsyncComponent(
 
 const searchQuery = ref<string>("");
 let active = ref<boolean>(false);
-
-
 </script>
