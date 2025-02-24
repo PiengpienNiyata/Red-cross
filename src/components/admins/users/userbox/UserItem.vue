@@ -7,6 +7,81 @@
     >
       &lt;
     </button>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-toggle-wrapper">
+          <ul class="modal-img">
+            <li>
+              <img src="@/assets/images/gif/danger.gif" alt="error" />
+            </li>
+          </ul>
+          <h4 class="text-center pb-2" v-if="selectedUser">
+            Delete
+            <span class="text-secondary fw-bold">
+              {{ selectedUser.first_name }} {{ selectedUser.last_name }}
+            </span>
+            's account?
+          </h4>
+          <p class="text-center">
+            This account will be disappeared after deleted permanently.
+          </p>
+<br>
+          <div class="d-flex justify-content-center mt-3">
+            <button
+              class="btn btn-outline-dark m-2"
+              type="button"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              type="button"
+              data-bs-dismiss="modal"
+
+              @click="deleteing"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-toggle-wrapper">
+          <ul class="modal-img">
+            <li>
+              <img src="@/assets/images/gif/dashboard-8/successful.gif" alt="success" />
+            </li>
+          </ul>
+          <h4 class="text-center pb-2">Account deleted successfully!</h4>
+          <p class="text-center">Click on close button to continue.</p>
+          <br>
+
+          <button
+            class="btn btn-secondary d-flex m-auto"
+            type="button"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
     <div class="user-range">
       {{ startIndex + 1 }}-{{ endIndex }} of {{ allData.length }}
@@ -99,8 +174,14 @@
               </router-link>
             </a>
             <a href="#">
-              <i class="fa fa-trash" style="font-size: 16px"> </i>
-            </a>
+              <i
+                class="fa fa-trash"
+                style="font-size: 16px"
+                :data-bs-toggle="'modal'"
+                :data-bs-target="'#delModal'"
+                @click="openDeleteModal(row)"
+              ></i
+            ></a>
           </div>
         </li>
       </ul>
@@ -110,6 +191,11 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted, defineProps } from "vue";
 import { mockUsers } from "@/core/mockup/user";
+import { useRouter } from "vue-router";
+import { onDelete as deleteUser } from "@/composables/common/admin/addUserForm";
+import { Modal } from "bootstrap";
+
+const router = useRouter();
 
 const props = defineProps<{ searchQuery: string }>();
 
@@ -118,6 +204,29 @@ let currentPage = ref<number>(1);
 let allData = ref<any[]>([]);
 const selectedPosition = ref<string>("all");
 const positions = ["all", "system", "admin", "user"];
+const selectedUser = ref<{ userid: number; first_name: string; last_name: string } | null>(null);
+
+function openDeleteModal(user: { userid: number; first_name: string; last_name: string }) {
+  selectedUser.value = user;
+}
+
+function openModal(modalId: string) {
+  const modalElement = document.getElementById(modalId);
+  if (modalElement) {
+    new Modal(modalElement).show();
+  }
+}
+
+async function deleteing() {
+  if (!selectedUser.value) return;
+
+  const success = await deleteUser(selectedUser.value.userid);
+  if (success) {
+    openModal("successModal");
+  } else {
+    console.error("❌ Failed to delete user.");
+  }
+}
 
 onMounted(() => {
   allData.value = mockUsers;
@@ -169,4 +278,8 @@ const startIndex = computed(
 const endIndex = computed(() =>
   Math.min(startIndex.value + elementsPerPage.value, filteredUsers.value.length)
 );
+
+const goBack = () => {
+  router.back();
+};
 </script>

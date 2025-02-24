@@ -88,3 +88,54 @@ export const onSubmit = () => {
 
   }
 };
+
+export const onEdit = async () => {
+  submitted.value = true;
+  formSubmitted.value = true;
+
+  const formIsValid = validateInputs();
+  if (formIsValid) {
+    console.log('✅ Form is valid! Submitting...', inputs.value);
+
+    try {
+      // รอAPI
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      console.log('✅ Account edited successfully');
+      return true;
+    } catch (error) {
+      console.error('❌ Submission failed:', error);
+      return false;
+    }
+  } else {
+    console.log('❌ Form has errors. Fix them before submitting.');
+    return false;
+  }
+};
+
+export const onDelete = async (userId: number) => {
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    console.log(`✅ User with ID ${userId} deleted successfully.`);
+    return true;
+  } catch (error) {
+    console.error(`❌ Failed to delete user with ID ${userId}:`, error);
+    return false;
+  }
+};
+
+export const resetInputs = () => {
+  inputs.value.firstname.data = "";
+  inputs.value.lastname.data = "";
+  inputs.value.email.data = "";
+  inputs.value.position.data = "";
+  inputs.value.password.data = "";
+  inputs.value.firstname.errorMessage = "";
+  inputs.value.lastname.errorMessage = "";
+  inputs.value.email.errorMessage = "";
+  inputs.value.position.errorMessage = "";
+  inputs.value.password.errorMessage = "";
+
+  formSubmitted.value = false;
+};

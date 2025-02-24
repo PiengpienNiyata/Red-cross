@@ -22,7 +22,7 @@ onMounted(() => {
   if (!userId) {
     setTimeout(() => {
       router.push({ name: "users" });
-    }, 1500); // Redirects after showing message
+    }, 1500);
   }
 });
 </script>
