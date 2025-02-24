@@ -233,7 +233,7 @@ import {
   inputs,
   optionValues,
   formSubmitted,
-} from "@/composables/common/admin/addUserForm";
+} from "@/composables/common/admin/userForm";
 
 const Card3 = defineAsyncComponent(
   () => import("@/components/common/card/CardData3.vue")

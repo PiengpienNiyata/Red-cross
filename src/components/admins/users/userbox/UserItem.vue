@@ -192,7 +192,7 @@
 import { ref, computed, onMounted, defineProps } from "vue";
 import { mockUsers } from "@/core/mockup/user";
 import { useRouter } from "vue-router";
-import { onDelete as deleteUser } from "@/composables/common/admin/addUserForm";
+import { onDelete as deleteUser } from "@/composables/common/admin/userForm";
 import { Modal } from "bootstrap";
 
 const router = useRouter();

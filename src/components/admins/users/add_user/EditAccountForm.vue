@@ -127,8 +127,7 @@
           class="btn btn-outline-light w-100"
           type="button"
           @click="openPasswordModal"
-          style="background-color: #ffffff;"
-
+          style="background-color: #ffffff"
         >
           Set Password
         </button>
@@ -206,7 +205,7 @@ import {
   onEdit as sendData,
   optionValues,
   formSubmitted,
-} from "@/composables/common/admin/addUserForm";
+} from "@/composables/common/admin/userForm";
 
 const props = defineProps<{ userId: string }>();
 const router = useRouter();
