@@ -29,6 +29,14 @@ export const menu: MenuItem[] = [
         type: "link"
     },
     {
+        path: "/admins/projects",
+        icon: "stroke-file",
+        icon1: "fill-file",
+        title: "Projects",
+        isPinned: false,
+        type: "link"
+    },
+    {
         headTitle1: "Unused Templates",
         headTitle2: "Ready to use apps",
         type: "headtitle"

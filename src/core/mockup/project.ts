@@ -6,7 +6,7 @@ export interface Project {
   department: string;
   start_date: string; // Format: 'YYYY-MM-DD'
   ppr: number;        // Account ID
-  status: 'pass' | 'waiting' | 'finished';
+  status: 'pass' | 'waiting' | 'completed';
 }
 
 export const mockProjects: Project[] = [
@@ -32,7 +32,7 @@ export const mockProjects: Project[] = [
     department: "Marketing",
     start_date: "2024-02-20",
     ppr: 4,
-    status: "finished",
+    status: "completed",
   },
   {
     id: 4,
@@ -64,6 +64,6 @@ export const mockProjects: Project[] = [
     department: "Human Resources",
     start_date: "2024-04-20",
     ppr: 7,
-    status: "finished",
+    status: "completed",
   },
 ];

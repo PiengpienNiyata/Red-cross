@@ -243,7 +243,7 @@ const router = useRouter();
 const passwordModalRef = ref(null);
 
 const SetPassword = defineAsyncComponent(
-  () => import("@/components/admins/users/add_user/SetPassword.vue")
+  () => import("@/components/admins/users/userConfig/SetPassword.vue")
 );
 
 const handlePasswordSubmit = (password: string) => {

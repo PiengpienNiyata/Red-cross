@@ -31,7 +31,7 @@ export const errors = ref<ErrorObject[]>([]);
 // ]);
 
 export const optionStatuses = ref<Project["status"][]>([
-  "pass", "waiting", "finished",
+  "pass", "waiting", "completed",
 ]);
 
 export const inputs = ref<ProjectInputs>({

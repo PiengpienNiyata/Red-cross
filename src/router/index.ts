@@ -153,9 +153,15 @@ import indexPagenation from "@/pages/advance/indexPagenation.vue"
 import indexBreadcrumb from "@/pages/advance/indexBreadcrumb.vue"
 import indexRange from "@/pages/advance/indexRange.vue"
 
+// admin/Account management
 import users from "@/pages/admin/users/users.vue"
 import createAccount from "@/pages/admin/users/createAccount.vue"
 import editAccount from "@/pages/admin/users/editAccount.vue"
+
+//admin/project management
+import projects from 'C:/Users/HP VICTUS16/Internship/Red-cross/src/pages/admin/projects/projects.vue';
+import createProject from "@/pages/admin/projects/createProject.vue"
+import editProject from "@/pages/admin/projects/editProject.vue"
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -215,6 +221,23 @@ const routes: Array<RouteRecordRaw> = [
         component: editAccount,
         props: true,
       },
+
+      {
+        path: "projects",
+        name: "projects",
+        component: projects,
+      },
+      {
+        path: "projects/create",
+        name: "create",
+        component: createProject,
+      },
+      // {
+      //   path: "projects/edit/:projectId",
+      //   name: "edit",
+      //   component: editAccount,
+      //   props: true,
+      // },
     ],
   }
   
