@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <EditAccountForm v-if="userId" :userId="userId" />
+            <EditProjectForm v-if="userId" :userId="userId" />
             <div v-else>
         <p>User ID not provided. Redirecting to user list...</p>
       </div>
@@ -12,7 +12,7 @@
 import { ref, defineAsyncComponent, onMounted } from 'vue'
 import { useRouter, useRoute } from "vue-router";
 
-const EditAccountForm = defineAsyncComponent(() => import("@/components/admins/users/userConfig/EditAccountForm.vue"))
+const EditProjectForm = defineAsyncComponent(() => import("@/components/admins/projects/projectConfig/EditProjectForm.vue"))
 
 const router = useRouter();
 const route = useRoute();
