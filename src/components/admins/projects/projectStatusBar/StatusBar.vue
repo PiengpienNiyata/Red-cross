@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid" style="margin-top: 25px">
     <div class="row">
-      <Item header="Total project" :amount="totalProjects" />
-      <Item header="Passed" :amount="passedProjects" />
-      <Item header="Waiting" :amount="waitingProjects" />
-      <Item header="Completed" :amount="completedProjects" />
+      <Item header="Total project" :amount="totalProjects" iconPath="blue"/>
+      <Item header="Passed" :amount="passedProjects" iconPath="green" />
+      <Item header="Waiting" :amount="waitingProjects" iconPath="yellow" />
+      <Item header="Completed" :amount="completedProjects" iconPath="gray" />
     </div>
   </div>
 </template>
@@ -12,6 +12,7 @@
 <script lang="ts" setup>
 import { defineAsyncComponent, computed } from "vue";
 import { mockProjects } from "@/core/mockup/project";
+
 
 const Item = defineAsyncComponent(
   () => import("@/components/admins/projects/projectStatusBar/StatusItem.vue")

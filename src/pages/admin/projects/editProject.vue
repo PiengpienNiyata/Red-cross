@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid">
         <div class="row">
-            <EditProjectForm v-if="userId" :userId="userId" />
+            <EditProjectForm v-if="projectId" :projectId="projectId" />
             <div v-else>
-        <p>User ID not provided. Redirecting to user list...</p>
+        <p>Project ID not provided. Redirecting to project list...</p>
       </div>
         </div>
     </div>
@@ -16,12 +16,12 @@ const EditProjectForm = defineAsyncComponent(() => import("@/components/admins/p
 
 const router = useRouter();
 const route = useRoute();
-const userId = route.params.userId as string | undefined;
+const projectId = route.params.projectId as string | undefined;
 
 onMounted(() => {
-  if (!userId) {
+  if (!projectId) {
     setTimeout(() => {
-      router.push({ name: "users" });
+      router.push({ name: "projects" });
     }, 1500);
   }
 });

@@ -185,7 +185,7 @@
 
           <div class="interaction">
             <a href="#">
-              <router-link :to="{ name: 'edit', params: { userId: row.id } }">
+              <router-link :to="{ name: 'editProjects', params: { projectId: row.id } }">
                 <i class="fa fa-pencil" style="font-size: 16px"> </i>
               </router-link>
             </a>

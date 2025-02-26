@@ -229,15 +229,15 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "projects/create",
-        name: "create",
+        name: "createProjects",
         component: createProject,
       },
-      // {
-      //   path: "projects/edit/:projectId",
-      //   name: "edit",
-      //   component: editAccount,
-      //   props: true,
-      // },
+      {
+        path: "projects/edit/:projectId",
+        name: "editProjects",
+        component: editProject,
+        props: true,
+      },
     ],
   }
   

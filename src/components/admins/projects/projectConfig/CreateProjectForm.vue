@@ -1,11 +1,11 @@
 <template>
-  <!-- <Card3
+  <Card3
     colClass="col-xl-12"
     pre="true"
     cardClass="height-equal"
     preClass="f-m-light mt-1"
     headerTitle="true"
-    title="Create Account"
+    title="Create Project"
   >
     <form
       class="row g-3 needs-validation custom-input"
@@ -14,41 +14,62 @@
     >
       <div class="col-12">
         <label class="col-sm-12 col-form-label" for="validationCustom01"
-          >Email</label
+          >Project name</label
         >
         <input
-          type="email"
+          type="text"
           class="form-control"
-          v-model="inputs.email.data"
-          :class="{ 'is-invalid': formSubmitted && inputs.email.errorMessage }"
+          placeholder="Project name 01"
+          v-model="inputs.project_name.data"
+          :class="{
+            'is-invalid': formSubmitted && inputs.project_name.errorMessage,
+          }"
         />
 
-        <div class="invalid-feedback" v-if="inputs.email.errorMessage.length">
-          {{ inputs.email.errorMessage }}
+        <div
+          class="invalid-feedback"
+          v-if="inputs.project_name.errorMessage.length"
+        >
+          {{ inputs.project_name.errorMessage }}
         </div>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label" for="validationCustom01">First name</label>
+        <label class="form-label" for="validationCustom01">Department</label>
         <input
           type="text"
           class="form-control"
           :class="{
-            'is-invalid': formSubmitted && inputs.firstname.errorMessage,
+            'is-invalid': formSubmitted && inputs.department.errorMessage,
           }"
-          id="firstName"
-          placeholder="First name"
-          v-model="inputs.firstname.data"
+          placeholder="Department"
+          v-model="inputs.department.data"
         />
         <div
           class="invalid-feedback"
-          v-if="inputs.firstname.errorMessage.length"
+          v-if="inputs.department.errorMessage.length"
         >
-          {{ inputs.firstname.errorMessage }}
+          {{ inputs.department.errorMessage }}
         </div>
       </div>
 
+      <!-- Start Date -->
       <div class="col-md-6">
+        <label class="form-label">Start Date</label>
+        <input
+          type="date"
+          class="form-control"
+          v-model="inputs.start_date.data"
+          :class="{
+            'is-invalid': formSubmitted && inputs.start_date.errorMessage,
+          }"
+        />
+        <div class="invalid-feedback" v-if="inputs.start_date.errorMessage">
+          {{ inputs.start_date.errorMessage }}
+        </div>
+      </div>
+
+      <!-- <div class="col-md-6">
         <label class="form-label" for="validationCustom01">Last name</label>
         <input
           type="text"
@@ -66,60 +87,61 @@
         >
           {{ inputs.lastname.errorMessage }}
         </div>
-      </div>
+      </div> -->
 
       <div class="col-md-6">
-        <label class="form-label" for="validationCustom04">Position</label>
+        <label class="form-label" for="validationCustom04">Status</label>
         <select
           class="form-select"
           id="validationCustom04"
           :class="{
-            'is-invalid': formSubmitted && inputs.position.errorMessage,
+            'is-invalid': formSubmitted && inputs.status.errorMessage,
           }"
-          v-model="inputs.position.data"
+          v-model="inputs.status.data"
           required
         >
-          <option disabled value="">Select Position</option>
+          <option disabled value="">Select Status</option>
           <option v-for="value in optionValues" :key="value" :value="value">
             {{ value }}
           </option>
         </select>
-        <div
-          class="invalid-feedback"
-          v-if="inputs.position.errorMessage.length"
-        >
-          {{ inputs.position.errorMessage }}
+        <div class="invalid-feedback" v-if="inputs.status.errorMessage.length">
+          {{ inputs.status.errorMessage }}
         </div>
       </div>
-      <div class="col-md-6">
-        <label class="form-label" for="validationCustom03">Set password</label>
+
+
+       <div class="col-md-6">
+        <label class="form-label" for="validationCustom03">Primary Person Responsible (PPR)</label>
         <button
           class="btn btn-outline-light w-100"
           type="button"
-          @click="openPasswordModal"
+          @click="openPPRModal"
         >
-          Set Password
+          Select PPR
         </button>
-        <SetPassword
-          ref="passwordModalRef"
-          @passwordSubmitted="handlePasswordSubmit"
+        <Selectppr
+          ref="pprModalRef"
+          @pprSubmitted="handlePPRSubmit"
         />
 
-        <span class="text-muted" v-if="inputs.password.data">
-          ✅ Password set.
+        <span class="text-muted" v-if="inputs.ppr.data">
+          ✅ PPR is set to {{ inputs.ppr.data }}
         </span>
-        <span class="text-muted" v-else> ❌ Password not set. </span>
-        <div class="invalid-feedback" v-if="inputs.password.errorMessage">
-          {{ inputs.password.errorMessage }}
+        <span class="text-muted" v-else> ❌ PPR not select. </span>
+        <div class="invalid-feedback" v-if="inputs.ppr.errorMessage">
+          {{ inputs.ppr.errorMessage }}
         </div>
 
         <div
           class="invalid-feedback"
-          v-if="inputs.password.errorMessage.length"
+          v-if="inputs.ppr.errorMessage.length"
         >
-          {{ inputs.password.errorMessage }}
+          {{ inputs.ppr.errorMessage }}
         </div>
-      </div>
+      </div> 
+
+      
       <div class="col-12" style="margin-top: 40px">
         <button
           class="btn btn-outline-dark"
@@ -193,7 +215,7 @@
                     </li>
                   </ul>
                   <h4 class="text-center pb-2">
-                    Account created successfully!
+                    Project created successfully!
                   </h4>
                   <p class="text-center">Click on close button to continue.</p>
                   <br />
@@ -212,19 +234,20 @@
         </div>
       </div>
     </form>
-  </Card3> -->
+  </Card3>
 </template>
 
 <script lang="ts" setup>
-// import {
-//   ref,
-//   defineAsyncComponent,
-//   computed,
-//   onMounted,
-//   onUnmounted,
-// } from "vue";
-// import { useRouter } from "vue-router";
-// import { Modal } from "bootstrap";
+import {
+  ref,
+  defineAsyncComponent,
+  computed,
+  onMounted,
+  onUnmounted,
+  nextTick
+} from "vue";
+import { useRouter } from "vue-router";
+import { Modal } from "bootstrap";
 
 // import {
 //   validateInputs,
@@ -235,43 +258,71 @@
 //   formSubmitted,
 // } from "@/composables/common/admin/userForm";
 
-// const Card3 = defineAsyncComponent(
-//   () => import("@/components/common/card/CardData3.vue")
-// );
+import {
+  validateInputs,
+  onSubmit as sendData,
+  resetInputs,
+  inputs,
+  formSubmitted,
+} from "@/composables/common/admin/projectForm";
 
-// const router = useRouter();
-// const passwordModalRef = ref(null);
+const optionValues = ["pass", "waiting", "completed"];
 
-// const SetPassword = defineAsyncComponent(
-//   () => import("@/components/admins/users/userConfig/SetPassword.vue")
-// );
+const Card3 = defineAsyncComponent(
+  () => import("@/components/common/card/CardData3.vue")
+);
 
-// const handlePasswordSubmit = (password: string) => {
-//   inputs.value.password.data = password;
-//   inputs.value.password.errorMessage = "";
-// };
+const router = useRouter();
+const pprModalRef = ref(null);
 
-// const openPasswordModal = () => {
-//   passwordModalRef.value?.showModal();
-// };
+const Selectppr = defineAsyncComponent(
+  () => import("@/components/admins/projects/projectConfig/Selectppr.vue")
+);
 
-// const isFormValid = computed(() => validateInputs());
+const handlePPRSubmit = (ppr: string) => {
+  inputs.value.ppr.data = ppr;
+  inputs.value.ppr.errorMessage = "";
+};
 
-// const onSubmit = () => {
-//   formSubmitted.value = true;
-// };
+const openPPRModal = () => {
+  pprModalRef.value?.showModal();
+};
 
-// const closeAllModals = () => {
-//   document.querySelectorAll(".modal.show").forEach((modalElement) => {
-//     const modalInstance = Modal.getInstance(modalElement);
-//     if (modalInstance) modalInstance.hide();
-//   });
-// };
+const isFormValid = computed(() => validateInputs());
 
-// const goBack = () => {
-//   closeAllModals();
-//   router.back();
-// };
+const onSubmit = async () => {
+  formSubmitted.value = true;
+
+  if (isFormValid.value) {
+    await sendData(); // Call projectForm.ts for project creation
+    await nextTick(); // Ensure DOM updates
+
+    const successModalElement = document.getElementById('successModal');
+    if (successModalElement) {
+      const successModal = new Modal(successModalElement);
+
+      // Reset form AFTER modal is hidden
+      successModalElement.addEventListener('hidden.bs.modal', () => {
+        resetInputs(); // Reset fields after user closes modal
+      });
+
+      successModal.show(); // Show modal
+    }
+  }
+};
+
+
+const closeAllModals = () => {
+  document.querySelectorAll(".modal.show").forEach((modalElement) => {
+    const modalInstance = Modal.getInstance(modalElement);
+    if (modalInstance) modalInstance.hide();
+  });
+};
+
+const goBack = () => {
+  closeAllModals();
+  router.back();
+};
 
 // onMounted(() => {
 //   resetInputs();
