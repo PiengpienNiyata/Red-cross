@@ -53,7 +53,6 @@
         </div>
       </div>
 
-      <!-- Start Date -->
       <div class="col-md-6">
         <label class="form-label">Start Date</label>
         <input
@@ -126,7 +125,7 @@
         />
 
         <span class="text-muted" v-if="inputs.ppr.data">
-          ✅ PPR is set to {{ inputs.ppr.data }}
+          ✅ PPR is set to {{ getPPRname(Number(inputs.ppr.data)) }}
         </span>
         <span class="text-muted" v-else> ❌ PPR not select. </span>
         <div class="invalid-feedback" v-if="inputs.ppr.errorMessage">
@@ -157,9 +156,8 @@
           :data-bs-target="
             formSubmitted ? (isFormValid ? '#successModal' : '#errorModal') : ''
           "
-          @click="sendData"
         >
-          Save
+          Create
         </button>
         <div
           class="modal fade"
@@ -179,7 +177,7 @@
                   </ul>
                   <h4 class="text-center pb-2">Invalid input!</h4>
                   <p class="text-center">
-                    Please check your account data before sent.
+                    Please check your project data before sent.
                   </p>
                   <br />
                   <button
@@ -248,6 +246,7 @@ import {
 } from "vue";
 import { useRouter } from "vue-router";
 import { Modal } from "bootstrap";
+import { mockUsers } from "@/core/mockup/user";
 
 // import {
 //   validateInputs,
@@ -294,7 +293,7 @@ const onSubmit = async () => {
   formSubmitted.value = true;
 
   if (isFormValid.value) {
-    await sendData(); // Call projectForm.ts for project creation
+    await sendData();
     await nextTick(); // Ensure DOM updates
 
     const successModalElement = document.getElementById('successModal');
@@ -311,6 +310,10 @@ const onSubmit = async () => {
   }
 };
 
+const getPPRname = (ppr: number): string => {
+  const user = mockUsers.find(user => user.id === ppr);
+  return user ? `${user.first_name} ${user.last_name}` : "Unknown PPR";
+};
 
 const closeAllModals = () => {
   document.querySelectorAll(".modal.show").forEach((modalElement) => {

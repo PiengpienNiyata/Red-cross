@@ -5,90 +5,80 @@
     cardClass="height-equal"
     preClass="f-m-light mt-1"
     headerTitle="true"
-    title="Edit Project data"
+    title="Edit Project"
   >
-    <div
-      class="modal fade"
-      id="successModal"
-      tabindex="-1"
-      role="dialog"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="modal-toggle-wrapper">
-              <ul class="modal-img">
-                <li>
-                  <img
-                    src="@/assets/images/gif/dashboard-8/successful.gif"
-                    alt="error"
-                  />
-                </li>
-              </ul>
-              <h4 class="text-center pb-2">Account edit successfully!</h4>
-              <p class="text-center">Click on close button to continue.</p>
-              <br />
-              <button
-                class="btn btn-secondary d-flex m-auto"
-                type="button"
-                data-bs-dismiss="modal"
-                @click="goBack"
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <form
       class="row g-3 needs-validation custom-input"
       novalidate
-      @submit.prevent="onSubmit"
+      @submit.prevent="onSubmit()"
     >
       <div class="col-12">
         <label class="col-sm-12 col-form-label" for="validationCustom01"
-          >Email</label
+          >Project name</label
         >
         <input
-          type="email"
+          type="text"
           class="form-control"
-          v-model.trim="inputs.email.data"
-          :class="{ 'is-invalid': formSubmitted && inputs.email.errorMessage }"
+          placeholder="Project name 01"
+          v-model="inputs.project_name.data"
+          :class="{
+            'is-invalid': formSubmitted && inputs.project_name.errorMessage,
+          }"
         />
-        <div class="invalid-feedback" v-if="inputs.email.errorMessage.length">
-          {{ inputs.email.errorMessage }}
+
+        <div
+          class="invalid-feedback"
+          v-if="inputs.project_name.errorMessage.length"
+        >
+          {{ inputs.project_name.errorMessage }}
         </div>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">First name</label>
+        <label class="form-label" for="validationCustom01">Department</label>
         <input
           type="text"
           class="form-control"
-          v-model.trim="inputs.firstname.data"
           :class="{
-            'is-invalid': formSubmitted && inputs.firstname.errorMessage,
+            'is-invalid': formSubmitted && inputs.department.errorMessage,
           }"
+          placeholder="Department"
+          v-model="inputs.department.data"
         />
         <div
           class="invalid-feedback"
-          v-if="inputs.firstname.errorMessage.length"
+          v-if="inputs.department.errorMessage.length"
         >
-          {{ inputs.firstname.errorMessage }}
+          {{ inputs.department.errorMessage }}
         </div>
       </div>
 
       <div class="col-md-6">
-        <label class="form-label">Last name</label>
+        <label class="form-label">Start Date</label>
+        <input
+          type="date"
+          class="form-control"
+          v-model="inputs.start_date.data"
+          :class="{
+            'is-invalid': formSubmitted && inputs.start_date.errorMessage,
+          }"
+        />
+        <div class="invalid-feedback" v-if="inputs.start_date.errorMessage">
+          {{ inputs.start_date.errorMessage }}
+        </div>
+      </div>
+
+      <!-- <div class="col-md-6">
+        <label class="form-label" for="validationCustom01">Last name</label>
         <input
           type="text"
           class="form-control"
-          v-model.trim="inputs.lastname.data"
           :class="{
             'is-invalid': formSubmitted && inputs.lastname.errorMessage,
           }"
+          id="lastName"
+          placeholder="Last name"
+          v-model="inputs.lastname.data"
         />
         <div
           class="invalid-feedback"
@@ -96,95 +86,146 @@
         >
           {{ inputs.lastname.errorMessage }}
         </div>
-      </div>
+      </div> -->
 
       <div class="col-md-6">
-        <label class="form-label">Position</label>
+        <label class="form-label" for="validationCustom04">Status</label>
         <select
           class="form-select"
-          v-model="inputs.position.data"
+          id="validationCustom04"
           :class="{
-            'is-invalid': formSubmitted && inputs.position.errorMessage,
+            'is-invalid': formSubmitted && inputs.status.errorMessage,
           }"
+          v-model="inputs.status.data"
           required
         >
-          <option disabled value="">Select Position</option>
+          <option disabled value="">Select Status</option>
           <option v-for="value in optionValues" :key="value" :value="value">
             {{ value }}
           </option>
         </select>
-        <div
-          class="invalid-feedback"
-          v-if="inputs.position.errorMessage.length"
-        >
-          {{ inputs.position.errorMessage }}
+        <div class="invalid-feedback" v-if="inputs.status.errorMessage.length">
+          {{ inputs.status.errorMessage }}
         </div>
       </div>
 
-      <div class="col-md-6">
-        <label class="form-label" for="validationCustom03">Set password</label>
+
+       <div class="col-md-6">
+        <label class="form-label" for="validationCustom03">Primary Person Responsible (PPR)</label>
         <button
           class="btn btn-outline-light w-100"
           type="button"
-          @click="openPasswordModal"
-          style="background-color: #ffffff"
+          @click="openPPRModal"
         >
-          Set Password
+          Select PPR
         </button>
-        <SetPassword
-          ref="passwordModalRef"
-          :password="inputs.password.data"
-          @passwordSubmitted="handlePasswordSubmit"
+        <Selectppr
+          ref="pprModalRef"
+          @pprSubmitted="handlePPRSubmit"
         />
-        <span class="text-muted" v-if="inputs.password.data"
-          >✅ Password set.</span
-        >
-        <span class="text-muted" v-else>❌ Password not set.</span>
+
+        <span class="text-muted" v-if="inputs.ppr.data">
+          ✅ PPR is set to {{ getPPRname(Number(inputs.ppr.data)) }}
+        </span>
+        <span class="text-muted" v-else> ❌ PPR not select. </span>
+        <div class="invalid-feedback" v-if="inputs.ppr.errorMessage">
+          {{ inputs.ppr.errorMessage }}
+        </div>
+
         <div
           class="invalid-feedback"
-          v-if="inputs.password.errorMessage.length"
+          v-if="inputs.ppr.errorMessage.length"
         >
-          {{ inputs.password.errorMessage }}
+          {{ inputs.ppr.errorMessage }}
         </div>
-      </div>
+      </div> 
 
-      <div class="col-12 mt-4">
-        <button class="btn btn-outline-dark me-2" @click="goBack" type="reset">
+      
+      <div class="col-12" style="margin-top: 40px">
+        <button
+          class="btn btn-outline-dark"
+          style="margin-right: 10px"
+          @click="goBack"
+        >
           Cancel
         </button>
-        <button class="btn btn-primary" type="submit" :disabled="isSubmitting">
-          {{ isSubmitting ? "Saving..." : "Save" }}
+        <button
+          class="btn btn-primary"
+          type="submit"
+          :data-bs-toggle="formSubmitted ? 'modal' : ''"
+          :data-bs-target="
+            formSubmitted ? (isFormValid ? '#successModal' : '#errorModal') : ''
+          "
+        >
+          Save
         </button>
-      </div>
+        <div
+          class="modal fade"
+          id="errorModal"
+          tabindex="-1"
+          role="dialog"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="modal-toggle-wrapper">
+                  <ul class="modal-img">
+                    <li>
+                      <img src="@/assets/images/gif/danger.gif" alt="error" />
+                    </li>
+                  </ul>
+                  <h4 class="text-center pb-2">Invalid input!</h4>
+                  <p class="text-center">
+                    Please check your project data before sent.
+                  </p>
+                  <br />
+                  <button
+                    class="btn btn-secondary d-flex m-auto"
+                    type="button"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <div
-        class="modal fade"
-        id="errorModal"
-        tabindex="-1"
-        role="dialog"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-body">
-              <div class="modal-toggle-wrapper">
-                <ul class="modal-img">
-                  <li>
-                    <img src="@/assets/images/gif/danger.gif" alt="error" />
-                  </li>
-                </ul>
-                <h4 class="text-center pb-2">Invalid input!</h4>
-                <p class="text-center">
-                  Please check your account data before sent.
-                </p>
-                <br />
-                <button
-                  class="btn btn-secondary d-flex m-auto"
-                  type="button"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
+        <div
+          class="modal fade"
+          id="successModal"
+          tabindex="-1"
+          role="dialog"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="modal-toggle-wrapper">
+                  <ul class="modal-img">
+                    <li>
+                      <img
+                        src="@/assets/images/gif/dashboard-8/successful.gif"
+                        alt="error"
+                      />
+                    </li>
+                  </ul>
+                  <h4 class="text-center pb-2">
+                    Project edited successfully!
+                  </h4>
+                  <p class="text-center">Click on close button to continue.</p>
+                  <br />
+                  <button
+                    class="btn btn-secondary d-flex m-auto"
+                    type="button"
+                    data-bs-dismiss="modal"
+                    @click="goBack"
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -195,101 +236,103 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineAsyncComponent, computed, onMounted, nextTick } from "vue";
+import {
+  ref,
+  defineAsyncComponent,
+  computed,
+  onMounted,
+  onUnmounted,
+  nextTick
+} from "vue";
 import { useRouter } from "vue-router";
-import { mockUsers } from "@/core/mockup/user";
 import { Modal } from "bootstrap";
+import { mockUsers } from "@/core/mockup/user";
 import {
   validateInputs,
-  inputs,
   onEdit as sendData,
-  optionValues,
+  resetInputs,
+  inputs,
   formSubmitted,
-} from "@/composables/common/admin/userForm";
+} from "@/composables/common/admin/projectForm";
+import { mockProjects } from "@/core/mockup/project";
 
-const props = defineProps<{ userId: string }>();
+// Status options
+const optionValues = ["pass", "waiting", "completed"];
+const props = defineProps<{ projectId: string }>();
+
+const Card3 = defineAsyncComponent(() => import("@/components/common/card/CardData3.vue"));
+const Selectppr = defineAsyncComponent(() => import("@/components/admins/projects/projectConfig/Selectppr.vue"));
+
 const router = useRouter();
-const passwordModalRef = ref(null);
-const isSubmitting = ref(false);
+const pprModalRef = ref(null);
 
-const SetPassword = defineAsyncComponent(
-  () => import("@/components/admins/users/userConfig/SetPassword.vue")
-);
-
-const handlePasswordSubmit = (password: string) => {
-  inputs.value.password.data = password.trim();
-  inputs.value.password.errorMessage = "";
+const handlePPRSubmit = (ppr: string) => {
+  inputs.value.ppr.data = ppr;
+  inputs.value.ppr.errorMessage = "";
 };
 
-const openPasswordModal = () => passwordModalRef.value?.showModal?.();
+const openPPRModal = () => {
+  pprModalRef.value?.showModal();
+};
+
 const isFormValid = computed(() => validateInputs());
+const isSubmitting = ref(false); // Track submission intent
 
 const onSubmit = async () => {
+  isSubmitting.value = true; // Prevent accidental navigation
   formSubmitted.value = true;
-  const success = await sendData();
 
-  await nextTick();
+  if (isFormValid.value) {
+    await sendData(Number(props.projectId));
+    await nextTick(); // Ensure DOM updates before modal display
 
-  const successModalElement = document.getElementById("successModal");
-  const errorModalElement = document.getElementById("errorModal");
-
-  if (success) {
+    const successModalElement = document.getElementById('successModal');
     if (successModalElement) {
-      new Modal(successModalElement).show();
-    } else {
-      console.error("Success modal element not found.");
-    }
-  } else {
-    if (errorModalElement) {
-      new Modal(errorModalElement).show();
-    } else {
-      console.error("Error modal element not found.");
+      const successModal = new Modal(successModalElement);
+      successModal.show(); // Show success modal
     }
   }
+  isSubmitting.value = false; // Reset submission state
 };
 
 const closeAllModals = () => {
   document.querySelectorAll(".modal.show").forEach((modalElement) => {
-    const modalInstance =
-      Modal.getInstance(modalElement) || new Modal(modalElement);
-    modalInstance.hide();
-    modalInstance.dispose();
+    const modalInstance = Modal.getInstance(modalElement);
+    if (modalInstance) modalInstance.hide();
   });
-
-  document.querySelectorAll(".modal-backdrop").forEach((backdrop) => {
-    backdrop.remove();
-  });
-
-  document.body.classList.remove("modal-open");
-  document.body.style.removeProperty("padding-right");
 };
 
 const goBack = () => {
+  if (isSubmitting.value) return; // Prevent navigation while submitting
   closeAllModals();
   router.back();
 };
 
 onMounted(() => {
-  const user = mockUsers.find((user) => user.id === Number(props.userId));
+  resetInputs(); // Ensure form resets only once
 
-  if (user) {
-    inputs.value.firstname.data = user.first_name.trim();
-    inputs.value.lastname.data = user.last_name.trim();
-    inputs.value.email.data = user.email.trim();
-    inputs.value.position.data =
-      user.position.charAt(0).toUpperCase() +
-      user.position.slice(1).toLowerCase();
-    inputs.value.password.data = user.password ?? "";
+  // Load existing project data
+  const project = mockProjects.find((project) => project.id === Number(props.projectId));
+
+  if (project) {
+    inputs.value.project_name.data = project.project_name.trim();
+    inputs.value.department.data = project.department.trim();
+    inputs.value.start_date.data = project.start_date.trim();
+    inputs.value.ppr.data = String(project.ppr);
+    inputs.value.status.data = project.status;
   } else {
-    alert("User not found. Redirecting to user list...");
-    router.push({ name: "users" });
+    alert("Project not found. Redirecting to project list...");
+    router.push({ name: "projects" });
   }
+});
+
+const getPPRname = (ppr: number): string => {
+  const user = mockUsers.find(user => user.id === ppr);
+  return user ? `${user.first_name} ${user.last_name}` : "Unknown PPR";
+};
+
+onUnmounted(() => {
+  resetInputs(); // Ensure cleanup
 });
 </script>
 
-<style scoped>
-.btn[disabled] {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-</style>

@@ -90,7 +90,7 @@ export const onSubmit = () => {
 
     mockProjects.push(newProject);
     console.log("✅ Project created:", newProject);
-    resetInputs();
+    // resetInputs();
   } else {
     console.log("❌ Form has errors.");
   }
